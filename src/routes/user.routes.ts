@@ -7,12 +7,12 @@ import UserMapper from '../mappers/UserMapper';
 const usersRouter = Router();
 
 usersRouter.get('/create', async (request, response) => {
-  const { username, email, password } = request.body;
+  const { username, name, email, password } = request.body;
 
   const CreateUser = new CreateUserService();
 
   try {
-    const user = await CreateUser.execute({ username, email, password });
+    const user = await CreateUser.execute({ username, name, email, password });
 
     const DTOuser = UserMapper.toDTO(user);
 

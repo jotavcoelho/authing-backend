@@ -5,12 +5,18 @@ import User from '../models/User';
 
 interface Request {
   username: string;
+  name: string;
   email: string;
   password: string;
 }
 
 class CreateUserService {
-  public async execute({ username, email, password }: Request): Promise<User> {
+  public async execute({
+    username,
+    name,
+    email,
+    password,
+  }: Request): Promise<User> {
     const usersRepository = getRepository(User);
 
     const usernameIsAnEmail =
@@ -42,6 +48,7 @@ class CreateUserService {
 
     const user = usersRepository.create({
       username,
+      name,
       email,
       password: hashedPassword,
     });
