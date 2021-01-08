@@ -11,6 +11,7 @@ export default class CreateUsers1610033631042 implements MigrationInterface {
             type: 'uuid',
             isPrimary: true,
             generationStrategy: 'uuid',
+            default: 'uuid_generate_v4()',
           },
           {
             name: 'username',
@@ -24,10 +25,6 @@ export default class CreateUsers1610033631042 implements MigrationInterface {
           },
           {
             name: 'password',
-            type: 'varchar',
-          },
-          {
-            name: 'name',
             type: 'varchar',
           },
           {
