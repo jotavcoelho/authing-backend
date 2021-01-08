@@ -10,11 +10,11 @@ sessionsRouter.get('/create', async (request, response) => {
 
   const authUser = new AuthUserService();
   try {
-    const { user } = await authUser.execute({ credential, password });
+    const { user, token } = await authUser.execute({ credential, password });
 
     const DTOuser = UserMapper.toDTO(user);
 
-    return response.json(DTOuser);
+    return response.json({ DTOuser, token });
   } catch (err) {
     return response.status(400).json(err.message);
   }
