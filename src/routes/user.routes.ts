@@ -1,6 +1,7 @@
 import { Router } from 'express';
 
 import CreateUserService from '../services/CreateUserService';
+import checkAuthentication from '../middlewares/checkAuthentication';
 
 import UserMapper from '../mappers/UserMapper';
 
@@ -20,6 +21,12 @@ usersRouter.post('/create', async (request, response) => {
   } catch (err) {
     return response.status(400).json({ error: err.message });
   }
+});
+
+usersRouter.use(checkAuthentication);
+
+usersRouter.get('/auth', async (request, response) => {
+  return response.json({ message: 'AUTHENTICATED ROUTE' });
 });
 
 export default usersRouter;
