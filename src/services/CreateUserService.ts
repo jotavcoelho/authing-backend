@@ -13,6 +13,15 @@ class CreateUserService {
   public async execute({ username, email, password }: Request): Promise<User> {
     const usersRepository = getRepository(User);
 
+    const usernameIsAnEmail =
+      username.includes('@') && username.endsWith('.com');
+
+    if (usernameIsAnEmail) {
+      throw new Error(
+        'Please note that the username is not supposed to be an e-mail',
+      );
+    }
+
     const userWithSameUsername = await usersRepository.findOne({
       where: { username },
     });
