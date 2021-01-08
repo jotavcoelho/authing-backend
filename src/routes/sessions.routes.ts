@@ -5,7 +5,7 @@ import UserMapper from '../mappers/UserMapper';
 
 const sessionsRouter = Router();
 
-sessionsRouter.get('/create', async (request, response) => {
+sessionsRouter.post('/create', async (request, response) => {
   const { credential, password } = request.body;
 
   const authUser = new AuthUserService();

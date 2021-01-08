@@ -6,13 +6,13 @@ import UserMapper from '../mappers/UserMapper';
 
 const usersRouter = Router();
 
-usersRouter.get('/create', async (request, response) => {
+usersRouter.post('/create', async (request, response) => {
   const { username, name, email, password } = request.body;
 
-  const CreateUser = new CreateUserService();
+  const createUser = new CreateUserService();
 
   try {
-    const user = await CreateUser.execute({ username, name, email, password });
+    const user = await createUser.execute({ username, name, email, password });
 
     const DTOuser = UserMapper.toDTO(user);
 
