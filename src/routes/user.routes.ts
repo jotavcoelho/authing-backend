@@ -2,6 +2,8 @@ import { Router } from 'express';
 
 import CreateUserService from '../services/CreateUserService';
 
+import UserMapper from '../mappers/UserMapper';
+
 const usersRouter = Router();
 
 usersRouter.get('/create', async (request, response) => {
@@ -12,7 +14,9 @@ usersRouter.get('/create', async (request, response) => {
   try {
     const user = await CreateUser.execute({ username, email, password });
 
-    return response.json(user);
+    const DTOuser = UserMapper.toDTO(user);
+
+    return response.json(DTOuser);
   } catch (err) {
     return response.status(400).json({ error: err.message });
   }
