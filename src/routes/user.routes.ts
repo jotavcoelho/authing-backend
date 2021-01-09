@@ -1,11 +1,16 @@
 import { Router } from 'express';
+import multer from 'multer';
 
 import CreateUserService from '../services/CreateUserService';
 import checkAuthentication from '../middlewares/checkAuthentication';
 
 import UserMapper from '../mappers/UserMapper';
 
+import uploadConfig from '../config/upload';
+
 const usersRouter = Router();
+
+const upload = multer(uploadConfig);
 
 usersRouter.post('/create', async (request, response) => {
   const { username, name, email, password } = request.body;
@@ -28,5 +33,14 @@ usersRouter.use(checkAuthentication);
 usersRouter.get('/auth', async (request, response) => {
   return response.json({ message: 'AUTHENTICATED ROUTE' });
 });
+
+usersRouter.patch(
+  '/avatar',
+  upload.single('avatar'),
+  async (request, response) => {
+    console.log(request.file);
+    return response.json({ ok: true });
+  },
+);
 
 export default usersRouter;
