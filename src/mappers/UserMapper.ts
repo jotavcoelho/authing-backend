@@ -8,11 +8,12 @@ class UserMapper {
   // public static toPersistence(): User {}
 
   public static toDTO(user: User): Omit<User, 'password'> {
-    const { id, username, email, created_at, updated_at } = user;
+    const { id, username, name, email, created_at, updated_at } = user;
 
     return {
       id,
       username,
+      name,
       email,
       created_at,
       updated_at,
