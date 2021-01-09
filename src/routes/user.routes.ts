@@ -4,6 +4,8 @@ import multer from 'multer';
 import CreateUserService from '../services/CreateUserService';
 import UpdateAvatarService from '../services/UpdateAvatarService';
 import checkAuthentication from '../middlewares/checkAuthentication';
+import ShowUserProfileService from '../services/ShowUserProfileService';
+import UpdateUserProfileService from '../services/UpdateUserProfileService';
 
 import UserMapper from '../mappers/UserMapper';
 
@@ -53,5 +55,13 @@ usersRouter.patch(
     }
   },
 );
+
+usersRouter.get('/show', async (request, response) => {
+  const showUser = new ShowUserProfileService();
+
+  const DTOuser = await showUser.execute(request.user.id);
+
+  return response.json(DTOuser);
+});
 
 export default usersRouter;
