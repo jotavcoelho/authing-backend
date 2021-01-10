@@ -64,4 +64,30 @@ usersRouter.get('/show', async (request, response) => {
   return response.json(DTOuser);
 });
 
+usersRouter.put('/update', async (request, response) => {
+  const {
+    username,
+    name,
+    email,
+    current_password,
+    new_password,
+  } = request.body;
+
+  const updateProfile = new UpdateUserProfileService();
+  try {
+    const updatedUser = await updateProfile.execute({
+      user_id: request.user.id,
+      username,
+      name,
+      email,
+      current_password,
+      new_password,
+    });
+
+    return response.json(updatedUser);
+  } catch (err) {
+    return response.status(400).json({ error: err.message });
+  }
+});
+
 export default usersRouter;
